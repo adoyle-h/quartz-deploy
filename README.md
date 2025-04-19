@@ -4,6 +4,8 @@ Build markdown files via quartz and deploy to cloudflare page.
 
 The tool only work for my demands. You should fork the project for building your websites.
 
+It needs docker and docker compose.
+
 ## Install
 
 ```sh

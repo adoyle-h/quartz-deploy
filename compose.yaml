@@ -23,7 +23,7 @@ services:
       - command: rm -rf /root/quartz/public/*
 
   serve:
-    image: adoyle/quartz:latest
+    image: adoyle/quartz-deploy:latest
     container_name: quartz-serve
     restart: unless-stopped
     init: true
