@@ -1,0 +1,22 @@
+@use "./base.scss";
+
+
+li.section-li>.section {
+  grid-template-columns: fit-content(10em) 3fr 1fr;
+  display: grid
+}
+
+li.section-li {
+  margin-bottom: 0.2em;
+}
+
+blockquote {
+  p {
+    color: #757575;
+  }
+}
+
+.article-title {
+  color: #2b7cf3;
+  font-size: 2rem;
+}

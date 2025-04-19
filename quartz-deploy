@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+set -o errexit -o nounset -o pipefail -o errtrace
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+readonly SCRIPT_DIR
+
+cmd=${1:-help}
+[[ $# -gt 0 ]] && shift 1
+
+help() {
+    cat <<EOF
+Usage: quartz-deploy [CMD]
+CMD:
+  build  <dir>               The filepath of content directory
+  serve  <dir>               The filepath of content directory
+  deploy <dir>               The filepath of content directory
+  help
+EOF
+}
+
+set_envs() {
+    export CONTENT_DIR=$(realpath "$1")
+
+    export QUART_DEPLOY_DIR=$SCRIPT_DIR
+
+    if [[ -f $CONTENT_DIR/.quartz/config.ts ]]; then
+        export QUARTZ_CONFIG=$CONTENT_DIR/.quartz/config.ts
+    else
+        export QUARTZ_CONFIG=$SCRIPT_DIR/quartz/config.ts
+    fi
+
+    if [[ -f $CONTENT_DIR/.quartz/layout.ts ]]; then
+        export QUARTZ_LAYOUT=$CONTENT_DIR/.quartz/layout.ts
+    else
+        export QUARTZ_LAYOUT=$SCRIPT_DIR/quartz/layout.ts
+    fi
+
+}
+
+build() {
+    set_envs "$1"
+    docker compose -f "$SCRIPT_DIR/compose.yaml" up build
+}
+
+serve() {
+    set_envs "$1"
+    docker compose -f "$SCRIPT_DIR/compose.yaml" up serve
+}
+
+deploy() {
+    local dir=$1
+    dir=$(realpath "$dir")
+}
+
+"${cmd}" "$@"
