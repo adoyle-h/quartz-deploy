@@ -19,6 +19,10 @@ RUN <<EOF
   NODE_ENV=production npm i
 EOF
 
+RUN <<EOF
+  cd quartz-4
+  NODE_ENV=production npm i @microflash/rehype-figure
+EOF
 
 FROM node:23-bookworm-slim
 

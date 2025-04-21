@@ -15,10 +15,17 @@ services:
       - $CONTENT_DIR:/root/quartz/content
       - $QUARTZ_CONFIG:/root/quartz/quartz.config.ts
       - $QUARTZ_LAYOUT:/root/quartz/quartz.layout.ts
-      - $QUART_DEPLOY_DIR/quartz/styles/custom.scss:/root/quartz/styles/custom.scss
+      - $QUART_DEPLOY_DIR/quartz/styles/custom.scss:/root/quartz/quartz/styles/custom.scss
+      - $QUART_DEPLOY_DIR/quartz/static/icon.png:/root/quartz/quartz/static/icon.png
       # Componentss
       - $QUART_DEPLOY_DIR/quartz/components/pages/FolderContent.tsx:/root/quartz/components/pages/FolderContent.tsx
       - $QUART_DEPLOY_DIR/quartz/components/Date.tsx:/root/quartz/quartz/components/Date.tsx
+      - $QUART_DEPLOY_DIR/quartz/components/Footer.tsx:/root/quartz/quartz/components/Footer.tsx
+      - $QUART_DEPLOY_DIR/quartz/components/Head.tsx:/root/quartz/quartz/components/Head.tsx
+      # Plugins
+      - $QUART_DEPLOY_DIR/quartz/plugins/transformers/index.ts:/root/quartz/quartz/plugins/transformers/index.ts
+      - $QUART_DEPLOY_DIR/quartz/plugins/transformers/improved-image.ts:/root/quartz/quartz/plugins/transformers/improved-image.ts
+      - $QUART_DEPLOY_DIR/quartz/plugins/emitters/contentIndex.tsx:/root/quartz/quartz/plugins/emitters/contentIndex.tsx
     post_start:
       - command: rm -rf /root/quartz/public/*
 
@@ -39,8 +46,15 @@ services:
       - $QUARTZ_CONFIG:/root/quartz/quartz.config.ts
       - $QUARTZ_LAYOUT:/root/quartz/quartz.layout.ts
       - $QUART_DEPLOY_DIR/quartz/styles/custom.scss:/root/quartz/quartz/styles/custom.scss
+      - $QUART_DEPLOY_DIR/quartz/static/icon.png:/root/quartz/quartz/static/icon.png
       # Componentss
       - $QUART_DEPLOY_DIR/quartz/components/pages/FolderContent.tsx:/root/quartz/quartz/components/pages/FolderContent.tsx
       - $QUART_DEPLOY_DIR/quartz/components/Date.tsx:/root/quartz/quartz/components/Date.tsx
+      - $QUART_DEPLOY_DIR/quartz/components/Footer.tsx:/root/quartz/quartz/components/Footer.tsx
+      - $QUART_DEPLOY_DIR/quartz/components/Head.tsx:/root/quartz/quartz/components/Head.tsx
+      # Plugins
+      - $QUART_DEPLOY_DIR/quartz/plugins/transformers/index.ts:/root/quartz/quartz/plugins/transformers/index.ts
+      - $QUART_DEPLOY_DIR/quartz/plugins/transformers/improved-image.ts:/root/quartz/quartz/plugins/transformers/improved-image.ts
+      - $QUART_DEPLOY_DIR/quartz/plugins/emitters/contentIndex.tsx:/root/quartz/quartz/plugins/emitters/contentIndex.tsx
     ports:
       - ${PORT:-8080}:8080

@@ -7,15 +7,28 @@ SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 readonly SCRIPT_DIR
 
 cmd=${1:-help}
+case "$cmd" in
+b)
+    cmd=build
+    ;;
+s)
+    cmd=serve
+    ;;
+d)
+    cmd=deploy
+    ;;
+esac
 [[ $# -gt 0 ]] && shift 1
 
 help() {
     cat <<EOF
 Usage: quartz-deploy [CMD]
 CMD:
-  build  <dir>               The filepath of content directory
-  serve  <dir>               The filepath of content directory
-  deploy <dir>               The filepath of content directory
+  build, b  <dir>               The filepath of content directory.
+  build-image                   Build the image of guartz-deploy.
+  serve, s  <dir>               The filepath of content directory.
+  deploy, d                     If wrangler.toml existed on your project root.
+  deploy, d <dir>               The filepath of content directory.
   help
 EOF
 }
@@ -50,8 +63,18 @@ serve() {
 }
 
 deploy() {
-    local dir=$1
-    dir=$(realpath "$dir")
+    if [[ -e $PWD/wrangler.toml ]]; then
+        wrangler pages deploy
+    else
+        local dir=$1
+        dir=$(realpath "$dir")
+        wrangler pages deploy "$dir"
+    fi
+}
+
+build-image() {
+    set_envs "$PWD"
+    docker compose -f "$SCRIPT_DIR/compose.yaml" build
 }
 
 "${cmd}" "$@"

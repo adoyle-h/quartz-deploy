@@ -8,6 +8,13 @@ export const sharedPageComponents: SharedLayout = {
   header: [],
   afterBody: [],
   footer: Component.Footer({
+    html: `<p style="font-size: 0.8rem;">
+Copyright ADoyle (<a href="mailto:adoyle.h@gmail.com" target="_blank">adoyle.h@gmail.com</a>).
+All Rights Reserved. ADoyle 保留所有权力。
+<br\>
+转载本站文字需要注明署名和来源链接。版权归 ADoyle 所有。如有违反，虽远必诛。
+</p>`,
+
     links: {
     },
   }),
@@ -19,7 +26,7 @@ const breadcrumbs = Component.Breadcrumbs({
 })
 
 const explorer = Component.Explorer({
-  title: '目录',
+  title: '主目录',
   filterFn: (node: FileTrieNode) => {
     return node.isFolder
   },
@@ -56,7 +63,7 @@ export const defaultContentPageLayout: PageLayout = {
   right: [
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
-    Component.Graph(),
+    // Component.Graph(),
   ],
 }
 

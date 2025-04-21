@@ -17,7 +17,7 @@ const config: QuartzConfig = {
     },
     locale: "zh-CN",
     baseUrl: "xxx.me",
-    ignorePatterns: ["private", "templates", ".obsidian", ".space", ".trash", ".git", ".makemd", ".quartz", ".megaignore"],
+    ignorePatterns: ["private", "templates", ".obsidian", ".space", ".trash", ".git", ".makemd", ".quartz", ".megaignore", ".wrangler", ".editorconfig"],
     defaultDateType: "created",
     theme: {
       fontOrigin: "googleFonts",
@@ -47,7 +47,7 @@ const config: QuartzConfig = {
           dark: "#d6d6d6",
           secondary: "#2b7cf3",
           tertiary: "#db7500",
-          highlight: "#4f728926",
+          highlight: "#091935",
           textHighlight: "#C7B000",
         },
       },
@@ -73,6 +73,7 @@ const config: QuartzConfig = {
       Plugin.CrawlLinks({ markdownLinkResolution: "shortest" }),
       Plugin.Description(),
       Plugin.Latex({ renderEngine: "katex" }),
+      Plugin.ImprovedImage(),
     ],
     filters: [Plugin.RemoveDrafts()],
     emitters: [
@@ -84,6 +85,9 @@ const config: QuartzConfig = {
       Plugin.ContentIndex({
         enableSiteMap: true,
         enableRSS: true,
+        enableRobotsTxt: true,
+        rssSlug: 'rss',
+        rssLimit: 20,
       }),
       Plugin.Assets(),
       Plugin.Static(),
