@@ -18,7 +18,7 @@ const config: QuartzConfig = {
     locale: "zh-CN",
     baseUrl: "xxx.me",
     // https://quartz.jzhao.xyz/features/private-pages
-    ignorePatterns: [".*", "其他/豆瓣模板/"],
+    ignorePatterns: [".*", "wrangler.toml", "其他/豆瓣模板/"],
     defaultDateType: "created",
     theme: {
       fontOrigin: "googleFonts",

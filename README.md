@@ -2,22 +2,29 @@
 
 Build markdown files via [quartz](https://github.com/jackyzha0/quartz) and deploy to cloudflare page.
 
-The tool only work for my demands. You should fork the project for building your websites.
+The tool only work for my demands. And there are some hard-codes in config and layout.
+You should fork the project for building your websites.
 
 It needs docker and docker compose.
 
 ## Features
 
-- Use container and volumes to extend quartz
-- Image support width and hight
-- Image support caption
-- Date use format YYYY-MM-DD
-- Remove Graph View
-- Change styles
-- Provide default config and layout
-- Changed fav.icon
-- Add meta for SEO
+- Use container and volumes to extend quartz.
+- Support reszing image with width and hight.
+- Support image caption.
+- Date use format YYYY-MM-DD.
+- Remove Graph View.
+- Change styles.
+- Provide default config and layout.
+- Changed fav.icon.
+- Add meta for SEO.
 - Support frontmatter `robots: none` to forbidden SEO robots for folders and documents.
+- Support frontmatter `banner: url` to add banner to page.
+- Add Metacard which list frontmatters.
+- Show created time, updated time, word count, reading time.
+- Show recent notes at homepage.
+
+Demo: https://talks.adoyle.me/
 
 ## Install
 
