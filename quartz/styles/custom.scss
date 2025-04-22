@@ -21,10 +21,13 @@ blockquote {
 .article-title {
   color: #2b7cf3;
   font-size: 2rem;
+  margin-top: 0;
 }
 
 footer {
-  line-height: 1.2rem !important;
+  p {
+    line-height: 1.2rem;
+  }
 }
 
 // Styling for Figures
@@ -42,4 +45,56 @@ figcaption {
 article img {
   display: block;
   margin: 0 auto;
+}
+
+.page>#quartz-body {
+  .sidebar.right {
+    margin-bottom: 3rem;
+  }
+}
+
+.recent-notes>ul.recent-ul>li {
+  margin: 0;
+}
+
+ul.recent-ul {
+  .section {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+
+    .desc {
+      max-width: 70%;
+    }
+  }
+
+  .meta {
+    margin: 0;
+  }
+}
+
+.folder-container div>a {
+  font-size: 1.1rem;
+  line-height: 1.8rem;
+}
+
+@media (max-width: 800px) {
+  .page>#quartz-body {
+    .sidebar.left {
+      flex-wrap: wrap;
+    }
+
+    .sidebar div.newline {
+      width: 100%;
+      height: 1rem;
+    }
+  }
+
+  .explorer .explorer-content {
+    padding: 5rem 0 2rem 0.4rem;
+  }
+
+  .folder-container div>a {
+    font-size: 1.2rem;
+  }
 }

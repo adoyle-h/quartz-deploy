@@ -17,7 +17,8 @@ const config: QuartzConfig = {
     },
     locale: "zh-CN",
     baseUrl: "xxx.me",
-    ignorePatterns: ["private", "templates", ".obsidian", ".space", ".trash", ".git", ".makemd", ".quartz", ".megaignore", ".wrangler", ".editorconfig"],
+    // https://quartz.jzhao.xyz/features/private-pages
+    ignorePatterns: [".*", "其他/豆瓣模板/"],
     defaultDateType: "created",
     theme: {
       fontOrigin: "googleFonts",
@@ -36,7 +37,7 @@ const config: QuartzConfig = {
           dark: "#2b2b2b",
           secondary: "#2b7cf3",
           tertiary: "#db7500",
-          highlight: "#061d4a",
+          highlight: "#e6eeff",
           textHighlight: "#C7B000",
         },
         darkMode: {
@@ -47,7 +48,7 @@ const config: QuartzConfig = {
           dark: "#d6d6d6",
           secondary: "#2b7cf3",
           tertiary: "#db7500",
-          highlight: "#091935",
+          highlight: "#1E1E1E",
           textHighlight: "#C7B000",
         },
       },

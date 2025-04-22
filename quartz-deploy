@@ -17,6 +17,9 @@ s)
 d)
     cmd=deploy
     ;;
+- | --help)
+    cmd=help
+    ;;
 esac
 [[ $# -gt 0 ]] && shift 1
 
@@ -24,12 +27,12 @@ help() {
     cat <<EOF
 Usage: quartz-deploy [CMD]
 CMD:
-  build, b  <dir>               The filepath of content directory.
-  build-image                   Build the image of guartz-deploy.
-  serve, s  <dir>               The filepath of content directory.
-  deploy, d                     If wrangler.toml existed on your project root.
-  deploy, d <dir>               The filepath of content directory.
-  help
+  build, b  [<dir>=\$PWD]        Build markdown files to htmls. <dir>=The filepath of content directory.
+  build image                   Build the image of guartz-deploy.
+  deploy, d                     Deploy built folder to cloudflare page. If wrangler.toml existed on your project root.
+  deploy, d [<dir>=\$PWD]        Deploy built folder to cloudflare page. <dir>=The filepath of content directory.
+  serve, s  [<dir>=\$PWD]        Build and watch to rebuild. <dir>=The filepath of content directory.
+  help                           Show help
 EOF
 }
 
@@ -53,12 +56,12 @@ set_envs() {
 }
 
 build() {
-    set_envs "$1"
+    set_envs "${1:-$PWD}"
     docker compose -f "$SCRIPT_DIR/compose.yaml" up build
 }
 
 serve() {
-    set_envs "$1"
+    set_envs "${1:-$PWD}"
     docker compose -f "$SCRIPT_DIR/compose.yaml" up serve
 }
 
@@ -74,7 +77,7 @@ deploy() {
 
 build-image() {
     set_envs "$PWD"
-    docker compose -f "$SCRIPT_DIR/compose.yaml" build
+    docker compose -f "$SCRIPT_DIR/compose.yaml" build build
 }
 
 "${cmd}" "$@"

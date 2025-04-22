@@ -1,6 +1,7 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import { FileTrieNode } from "./quartz/components/Explorer.tsx"
 import * as Component from "./quartz/components"
+import { QuartzPluginData } from "./quartz/plugins/vfile"
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
@@ -32,6 +33,20 @@ const explorer = Component.Explorer({
   },
 });
 
+const recnetNotes = Component.ConditionalRender({
+  component: Component.RecentNotes({
+    limit: 10,
+    showTags: false,
+    filter: (d: QuartzPluginData) => {
+      // not show contentpage index in folder
+      // console.log('d=%O', d)
+      return !d.slug.endsWith('/index')
+    }
+  }),
+  // only show recent notes in homepage
+  condition: (page) => page.fileData.slug === "index",
+})
+
 // components for pages that display a single page (e.g. a single note)
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
@@ -48,7 +63,7 @@ export const defaultContentPageLayout: PageLayout = {
   ],
   left: [
     Component.PageTitle(),
-    Component.MobileOnly(Component.Spacer()),
+    Component.MobileOnly(Component.Newline()),
     Component.Flex({
       components: [
         {
@@ -64,6 +79,7 @@ export const defaultContentPageLayout: PageLayout = {
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
     // Component.Graph(),
+    recnetNotes
   ],
 }
 
@@ -79,7 +95,7 @@ export const defaultListPageLayout: PageLayout = {
   ],
   left: [
     Component.PageTitle(),
-    Component.MobileOnly(Component.Spacer()),
+    Component.MobileOnly(Component.Newline()),
     Component.Flex({
       components: [
         {
@@ -91,5 +107,7 @@ export const defaultListPageLayout: PageLayout = {
     }),
     explorer,
   ],
-  right: [],
+  right: [
+    recnetNotes
+  ],
 }

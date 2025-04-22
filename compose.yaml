@@ -19,9 +19,11 @@ services:
       - $QUART_DEPLOY_DIR/quartz/static/icon.png:/root/quartz/quartz/static/icon.png
       # Componentss
       - $QUART_DEPLOY_DIR/quartz/components/pages/FolderContent.tsx:/root/quartz/components/pages/FolderContent.tsx
+      - $QUART_DEPLOY_DIR/quartz/components/index.ts:/root/quartz/quartz/components/index.ts
       - $QUART_DEPLOY_DIR/quartz/components/Date.tsx:/root/quartz/quartz/components/Date.tsx
       - $QUART_DEPLOY_DIR/quartz/components/Footer.tsx:/root/quartz/quartz/components/Footer.tsx
       - $QUART_DEPLOY_DIR/quartz/components/Head.tsx:/root/quartz/quartz/components/Head.tsx
+      - $QUART_DEPLOY_DIR/quartz/components/Newline.tsx:/root/quartz/quartz/components/Newline.tsx
       # Plugins
       - $QUART_DEPLOY_DIR/quartz/plugins/transformers/index.ts:/root/quartz/quartz/plugins/transformers/index.ts
       - $QUART_DEPLOY_DIR/quartz/plugins/transformers/improved-image.ts:/root/quartz/quartz/plugins/transformers/improved-image.ts
@@ -48,10 +50,12 @@ services:
       - $QUART_DEPLOY_DIR/quartz/styles/custom.scss:/root/quartz/quartz/styles/custom.scss
       - $QUART_DEPLOY_DIR/quartz/static/icon.png:/root/quartz/quartz/static/icon.png
       # Componentss
-      - $QUART_DEPLOY_DIR/quartz/components/pages/FolderContent.tsx:/root/quartz/quartz/components/pages/FolderContent.tsx
+      - $QUART_DEPLOY_DIR/quartz/components/pages/FolderContent.tsx:/root/quartz/components/pages/FolderContent.tsx
+      - $QUART_DEPLOY_DIR/quartz/components/index.ts:/root/quartz/quartz/components/index.ts
       - $QUART_DEPLOY_DIR/quartz/components/Date.tsx:/root/quartz/quartz/components/Date.tsx
       - $QUART_DEPLOY_DIR/quartz/components/Footer.tsx:/root/quartz/quartz/components/Footer.tsx
       - $QUART_DEPLOY_DIR/quartz/components/Head.tsx:/root/quartz/quartz/components/Head.tsx
+      - $QUART_DEPLOY_DIR/quartz/components/Newline.tsx:/root/quartz/quartz/components/Newline.tsx
       # Plugins
       - $QUART_DEPLOY_DIR/quartz/plugins/transformers/index.ts:/root/quartz/quartz/plugins/transformers/index.ts
       - $QUART_DEPLOY_DIR/quartz/plugins/transformers/improved-image.ts:/root/quartz/quartz/plugins/transformers/improved-image.ts
