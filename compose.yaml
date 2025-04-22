@@ -24,6 +24,9 @@ services:
       - $QUART_DEPLOY_DIR/quartz/components/Footer.tsx:/root/quartz/quartz/components/Footer.tsx
       - $QUART_DEPLOY_DIR/quartz/components/Head.tsx:/root/quartz/quartz/components/Head.tsx
       - $QUART_DEPLOY_DIR/quartz/components/Newline.tsx:/root/quartz/quartz/components/Newline.tsx
+      - $QUART_DEPLOY_DIR/quartz/components/MetaCard.tsx:/root/quartz/quartz/components/MetaCard.tsx
+      - $QUART_DEPLOY_DIR/quartz/components/Banner.tsx:/root/quartz/quartz/components/Banner.tsx
+      - $QUART_DEPLOY_DIR/quartz/components/ContentMeta.tsx:/root/quartz/quartz/components/ContentMeta.tsx
       # Plugins
       - $QUART_DEPLOY_DIR/quartz/plugins/transformers/index.ts:/root/quartz/quartz/plugins/transformers/index.ts
       - $QUART_DEPLOY_DIR/quartz/plugins/transformers/improved-image.ts:/root/quartz/quartz/plugins/transformers/improved-image.ts
@@ -56,6 +59,9 @@ services:
       - $QUART_DEPLOY_DIR/quartz/components/Footer.tsx:/root/quartz/quartz/components/Footer.tsx
       - $QUART_DEPLOY_DIR/quartz/components/Head.tsx:/root/quartz/quartz/components/Head.tsx
       - $QUART_DEPLOY_DIR/quartz/components/Newline.tsx:/root/quartz/quartz/components/Newline.tsx
+      - $QUART_DEPLOY_DIR/quartz/components/MetaCard.tsx:/root/quartz/quartz/components/MetaCard.tsx
+      - $QUART_DEPLOY_DIR/quartz/components/Banner.tsx:/root/quartz/quartz/components/Banner.tsx
+      - $QUART_DEPLOY_DIR/quartz/components/ContentMeta.tsx:/root/quartz/quartz/components/ContentMeta.tsx
       # Plugins
       - $QUART_DEPLOY_DIR/quartz/plugins/transformers/index.ts:/root/quartz/quartz/plugins/transformers/index.ts
       - $QUART_DEPLOY_DIR/quartz/plugins/transformers/improved-image.ts:/root/quartz/quartz/plugins/transformers/improved-image.ts

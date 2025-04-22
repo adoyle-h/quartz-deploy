@@ -21,7 +21,7 @@ blockquote {
 .article-title {
   color: #2b7cf3;
   font-size: 2rem;
-  margin-top: 0;
+  margin: 1rem 0;
 }
 
 footer {
@@ -54,7 +54,11 @@ article img {
 }
 
 .recent-notes>ul.recent-ul>li {
-  margin: 0;
+  margin: 0 0 0.5rem 0;
+
+  .section>.meta {
+    margin: 0;
+  }
 }
 
 ul.recent-ul {
@@ -63,13 +67,14 @@ ul.recent-ul {
     flex-flow: row;
     justify-content: space-between;
 
+    h3 {
+      font-size: 1rem;
+      line-height: 1rem;
+    }
+
     .desc {
       max-width: 70%;
     }
-  }
-
-  .meta {
-    margin: 0;
   }
 }
 
@@ -96,5 +101,52 @@ ul.recent-ul {
 
   .folder-container div>a {
     font-size: 1.2rem;
+  }
+}
+
+.metacard {
+  display: block;
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  padding: 10px 6px;
+  margin: 1.2rem 0;
+
+  .meta {
+    .key {
+      width: 70px;
+      color: var(--tertiary);
+    }
+
+    .value {
+      .value-item+.value-item {
+        margin-left: 6px;
+      }
+    }
+  }
+}
+
+.banner {
+  img {
+    position: absolute;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    pointer-events: none;
+    z-index: -1;
+    mask-image: linear-gradient(to bottom, rgb(0 0 0 / 31%) 0%, rgb(0 0 0 / 0%) 100%);
+    -webkit-mask-image: linear-gradient(to bottom, rgb(0 0 0 / 31%) 0%, rgb(0 0 0 / 0%) 100%);
+  }
+}
+
+.explorer-content {
+
+  .folder-icon,
+  .folder-title {
+    color: var(--dark);
   }
 }

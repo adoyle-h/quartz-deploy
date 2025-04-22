@@ -24,6 +24,8 @@ import Comments from "./Comments"
 import Flex from "./Flex"
 import ConditionalRender from "./ConditionalRender"
 export { Newline } from './Newline'
+export { MetaCard } from './MetaCard'
+export { Banner } from './Banner'
 
 export {
   ArticleTitle,

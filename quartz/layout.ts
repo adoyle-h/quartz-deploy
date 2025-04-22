@@ -7,6 +7,9 @@ import { QuartzPluginData } from "./quartz/plugins/vfile"
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
+  beforeBody: [
+    Component.Banner(),
+  ],
   afterBody: [],
   footer: Component.Footer({
     html: `<p style="font-size: 0.8rem;">
@@ -35,7 +38,7 @@ const explorer = Component.Explorer({
 
 const recnetNotes = Component.ConditionalRender({
   component: Component.RecentNotes({
-    limit: 10,
+    limit: 20,
     showTags: false,
     filter: (d: QuartzPluginData) => {
       // not show contentpage index in folder
@@ -50,6 +53,7 @@ const recnetNotes = Component.ConditionalRender({
 // components for pages that display a single page (e.g. a single note)
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
+    Component.Banner(),
     Component.ConditionalRender({
       component: breadcrumbs,
       condition: (page) => page.fileData.slug !== "index",
@@ -60,7 +64,9 @@ export const defaultContentPageLayout: PageLayout = {
       condition: (page) => page.fileData.slug !== "index",
     }),
     Component.TagList(),
+    Component.MetaCard(),
   ],
+
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Newline()),
@@ -75,6 +81,7 @@ export const defaultContentPageLayout: PageLayout = {
     }),
     explorer,
   ],
+
   right: [
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
@@ -86,6 +93,7 @@ export const defaultContentPageLayout: PageLayout = {
 // components for pages that display lists of pages  (e.g. tags or folders)
 export const defaultListPageLayout: PageLayout = {
   beforeBody: [
+    Component.Banner(),
     breadcrumbs,
     Component.ArticleTitle(),
     Component.ConditionalRender({
