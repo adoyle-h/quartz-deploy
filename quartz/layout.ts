@@ -38,7 +38,7 @@ const explorer = Component.Explorer({
 
 const recnetNotes = Component.ConditionalRender({
   component: Component.RecentNotes({
-    limit: 20,
+    limit: 14,
     showTags: false,
     filter: (d: QuartzPluginData) => {
       // not show contentpage index in folder

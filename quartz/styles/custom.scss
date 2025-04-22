@@ -95,8 +95,16 @@ ul.recent-ul {
     }
   }
 
-  .explorer .explorer-content {
-    padding: 5rem 0 2rem 0.4rem;
+  .article-title {
+    font-size: 1.5rem;
+  }
+
+  .explorer {
+    padding-right: 10px;
+
+    .explorer-content {
+      padding: 5rem 0 2rem 0.4rem;
+    }
   }
 
   .folder-container div>a {
@@ -114,10 +122,14 @@ ul.recent-ul {
   .meta {
     .key {
       width: 70px;
+      align-content: start;
       color: var(--tertiary);
     }
 
     .value {
+      word-break: break-word;
+      white-space: normal;
+
       .value-item+.value-item {
         margin-left: 6px;
       }
@@ -148,5 +160,15 @@ ul.recent-ul {
   .folder-icon,
   .folder-title {
     color: var(--dark);
+  }
+}
+
+.page>#quartz-body {
+  .sidebar.right {
+    margin-bottom: 0;
+
+    .recent-notes {
+      max-height: fit-content;
+    }
   }
 }
