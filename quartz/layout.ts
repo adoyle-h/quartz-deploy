@@ -2,6 +2,7 @@ import { PageLayout, SharedLayout } from "./quartz/cfg"
 import { FileTrieNode } from "./quartz/components/Explorer.tsx"
 import * as Component from "./quartz/components"
 import { QuartzPluginData } from "./quartz/plugins/vfile"
+import { layout } from './quartz.my'
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
@@ -11,29 +12,16 @@ export const sharedPageComponents: SharedLayout = {
     Component.Banner(),
   ],
   afterBody: [],
-  footer: Component.Footer({
-    html: `<p style="font-size: 0.8rem;">
-Copyright ADoyle (<a href="mailto:adoyle.h@gmail.com" target="_blank">adoyle.h@gmail.com</a>).
-All Rights Reserved. ADoyle 保留所有权力。
-<br\>
-转载本站文字需要注明署名和来源链接。版权归 ADoyle 所有。如有违反，虽远必诛。
-</p>`,
-
-    links: {
-    },
-  }),
+  footer: Component.Footer(layout.footer),
 }
 
-const breadcrumbs = Component.Breadcrumbs({
-  rootName: "主页",
-  showCurrentPage: false,
-})
+const breadcrumbs = Component.Breadcrumbs(layout.breadcrumbs)
 
 const explorer = Component.Explorer({
-  title: '主目录',
   filterFn: (node: FileTrieNode) => {
     return node.isFolder
   },
+  ...layout.explorer,
 });
 
 const recnetNotes = Component.ConditionalRender({

@@ -1,5 +1,6 @@
 import { QuartzConfig } from "./quartz/cfg"
 import * as Plugin from "./quartz/plugins"
+import { config as conf, plugins } from './quartz.my'
 
 /**
  * Quartz 4 Configuration
@@ -8,7 +9,7 @@ import * as Plugin from "./quartz/plugins"
  */
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "XXX 的网站",
+    pageTitle: "Title",
     pageTitleSuffix: "",
     enableSPA: true,
     enablePopovers: false,
@@ -53,7 +54,9 @@ const config: QuartzConfig = {
         },
       },
     },
+    ...conf,
   },
+
   plugins: {
     transformers: [
       Plugin.FrontMatter(),
@@ -96,6 +99,7 @@ const config: QuartzConfig = {
       // Comment out CustomOgImages to speed up build time
       // Plugin.CustomOgImages(),
     ],
+    ...plugins,
   },
 }
 

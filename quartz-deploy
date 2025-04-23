@@ -47,6 +47,13 @@ set_envs() {
         export QUARTZ_CONFIG=$SCRIPT_DIR/quartz/config.ts
     fi
 
+    if [[ -f $CONTENT_DIR/.quartz/my.ts ]]; then
+        export QUARTZ_MY=$CONTENT_DIR/.quartz/my.ts
+    else
+        export QUARTZ_MY=$SCRIPT_DIR/quartz/my.ts
+    fi
+
+
     if [[ -f $CONTENT_DIR/.quartz/layout.ts ]]; then
         export QUARTZ_LAYOUT=$CONTENT_DIR/.quartz/layout.ts
     else
