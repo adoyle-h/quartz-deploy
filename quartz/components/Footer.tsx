@@ -11,9 +11,13 @@ export default ((opts?: Options) => {
   const Footer: QuartzComponent = ({ displayClass, cfg }: QuartzComponentProps) => {
     const year = new Date().getFullYear()
     const links = opts?.links ?? []
+    let footerHTML = null
+    if (opts.html) {
+      footerHTML = <div dangerouslySetInnerHTML={{ __html: opts.html }}></div>
+    }
     return (
       <footer class={`${displayClass ?? ""}`}>
-        <div dangerouslySetInnerHTML={{ __html: opts.html }}></div>
+        {footerHTML}
         <ul>
           {Object.entries(links).map(([text, link]) => (
             <li>

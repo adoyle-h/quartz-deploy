@@ -2,29 +2,39 @@
 
 Build markdown files via [quartz](https://github.com/jackyzha0/quartz) and deploy to cloudflare page.
 
-The tool only work for my demands. And there are some hard-codes in config and layout.
-You should fork the project for building your websites.
-
-It needs docker and docker compose.
-
 ## Features
 
 - Use container and volumes to extend quartz.
-- Support reszing image with width and hight.
-- Support image caption.
-- Date use format YYYY-MM-DD.
-- Remove Graph View.
+- Provide default [config](#config) and [layout](#quartzquartzlayoutts).
+- Layout for my demand:
+  - Hide breadcrumbs and content metas at homepage.
+  - Show recent notes only at homepage.
+  - Remove GraphView
+  - Explorer only list folders by default.
+  - Sort documents by created datetime.
+- Modified quartz components
+  - ContentMeta: Show created time, updated time, word count, reading time.
+  - Head: Support frontmatter `robots: none` to forbidden SEO robots for folders and documents. Defaults to `robot: noimageindex`.
+  - Date: Using format YYYY-MM-DD.
+- New components
+  - Metacard: list frontmatters into table.
+  - Banner: Support frontmatter `banner: url` to add banner to page.
+  - Newline: wrap line in mobile view.
+- New plugins
+  - improved-image
+      - Support reszing image with width and hight.
+      - Support image caption.
+  - ContentIndex auto create robots.txt file based on frontmatter `robot: none`.
 - Change styles.
-- Provide default config and layout.
-- Changed fav.icon.
-- Add meta for SEO.
-- Support frontmatter `robots: none` to forbidden SEO robots for folders and documents.
-- Support frontmatter `banner: url` to add banner to page.
-- Add Metacard which list frontmatters.
-- Show created time, updated time, word count, reading time.
-- Show recent notes at homepage.
+  - Change fontsize, line-heights, colors.
+  - Set my fav.icon.
 
 Demo: https://talks.adoyle.me/
+
+## Requirements
+
+- `docker` and `docker compose`
+- [wrangler](https://developers.cloudflare.com/workers/wrangler/install-and-update/)
 
 ## Install
 
@@ -33,17 +43,66 @@ git clone https://github.com/adoyle-h/quartz-deploy.git
 ln -s "$(realpath ./quartz-deploy/quartz-deploy)" /usr/local/bin/
 ```
 
-User should install [wrangler](https://developers.cloudflare.com/workers/wrangler/install-and-update/) before using [quartz-deploy deploy](#deploy).
-
 ### Build Image
 
-User should build image once before using [Build](#build)/[Serve](#serve) commands.
+User should build image once before using [Build](#build) and [Serve](#serve) commands.
 
 `quartz-deploy build-image`
 
 For Chinese users, should use proxy: `APT_MIRROR=mirrors.ustc.edu.cn GITHUB_PROXY=https://ghfast.top/ quartz-deploy build-image`
 
 Notice: the last "/" is required for `GITHUB_PROXY`.
+
+## Config
+
+1. Create `wrangler.toml` file in your project root.
+2. Create `.quartz/my.ts` file in your project root.
+
+### wrangler.toml
+
+It is required. The wrangler.toml file used by wrangler command for cloudflare page.
+
+```toml
+name = "cloudflare-page-name"
+pages_build_output_dir = "./.public"  # do not change this line
+compatibility_date = "2025-04-21"     # set your current date
+```
+
+### .quartz/my.ts
+
+It is required. The .quartz/my.ts file is used by quartz-deploy for quick configuration.
+
+```typescript
+export const config: Record<string, any> = {
+  pageTitle: "website title",
+  baseUrl: "www.your.com",
+}
+
+export const layout: Record<string, any> = {
+  breadcrumbs: {
+    showCurrentPage: false,
+  },
+
+  footer: {
+    html: `<p>Copyright</p>`,
+    links: {},
+  }
+}
+
+export const plugins: Record<string, any> = {}
+```
+
+### .quartz/quartz.config.ts
+
+It is optional. If you create the file, it will override the [default config provided by quartz-deploy](./quartz/config.ts).
+
+The content of file refer to official quartz.config.ts.
+
+### .quartz/quartz.layout.ts
+
+It is optional. If you create the file, it will override the [default layout provided by quartz-deploy](./quartz/layout.ts).
+
+The content of file refer to official quartz.layout.ts.
 
 ## Usage
 
@@ -62,6 +121,8 @@ Notice: The public directory not mount to host. Its path is `/root/quartz/public
 `quartz-deploy build <path>`
 
 ### Deploy
+
+User should install [wrangler](https://developers.cloudflare.com/workers/wrangler/install-and-update/) before using [quartz-deploy deploy](#deploy).
 
 If [wrangler.toml](https://developers.cloudflare.com/workers/wrangler/configuration/) existed on your project root, just use `quartz-deploy deploy`.
 
