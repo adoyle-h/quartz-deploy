@@ -32,10 +32,11 @@ const recnetNotes = Component.ConditionalRender({
       // not show contentpage index in folder
       // console.log('d=%O', d)
       return !d.slug.endsWith('/index')
-    }
+    },
+    ...layout.recnetNotes,
   }),
   // only show recent notes in homepage
-  condition: (page) => page.fileData.slug === "index",
+  condition: layout.recnetNotesCondition || ((page) => page.fileData.slug === "index"),
 })
 
 // components for pages that display a single page (e.g. a single note)

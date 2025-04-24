@@ -43,13 +43,7 @@ const defaultOptions: Options = {
 
 function generateRobotsTxt(cfg: GlobalConfiguration, robotsIndex): string {
   const content = robotsIndex
-    .map((slug) => {
-      if (slug.endsWith('/index')) {
-        return `Disallow: /${slug.slice(0, -6)}/`
-      } else {
-        return `Disallow: /${slug}`
-      }
-    })
+    .map((slug) => `Disallow: /${slug}`)
     .join('\n')
   return `User-agent: *\n${content}`
 }
@@ -114,18 +108,26 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
     async *emit(ctx, content) {
       const cfg = ctx.cfg.configuration
       const linkIndex: ContentIndexMap = new Map()
+      const sitemapIndex: ContentIndexMap = new Map()
       const robotsIndex = []
+      let robotSlug
+
       for (const [tree, file] of content) {
         const slug = file.data.slug!
 
         if (file.data.frontmatter.robots === 'none') {
-          robotsIndex.push(slug)
+          if (slug.endsWith('/index')) {
+            robotSlug = `${slug.slice(0, -6)}/`
+          } else {
+            robotSlug = slug
+          }
+          robotsIndex.push(robotSlug)
           continue;
         }
 
         const date = getDate(ctx.cfg.configuration, file.data) ?? new Date()
         if (opts?.includeEmptyFiles || (file.data.text && file.data.text !== "")) {
-          linkIndex.set(slug, {
+          const idx = {
             slug,
             filePath: file.data.relativePath!,
             title: file.data.frontmatter?.title!,
@@ -137,14 +139,21 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
               : undefined,
             date: date,
             description: file.data.description ?? "",
-          })
+          }
+
+          linkIndex.set(slug, idx)
+
+          const find = robotsIndex.find((robotsSlug) => slug.startsWith(robotsSlug))
+          if (!find) {
+            sitemapIndex.set(slug, idx)
+          }
         }
       }
 
       if (opts?.enableSiteMap) {
         yield write({
           ctx,
-          content: generateSiteMap(cfg, linkIndex),
+          content: generateSiteMap(cfg, sitemapIndex),
           slug: "sitemap" as FullSlug,
           ext: ".xml",
         })

@@ -60,7 +60,7 @@ Notice: the last "/" is required for `GITHUB_PROXY`.
 
 ### wrangler.toml
 
-It is required. The wrangler.toml file used by wrangler command for cloudflare page.
+It is required. The "wrangler.toml" file used by wrangler command for cloudflare page.
 
 ```toml
 name = "cloudflare-page-name"
@@ -70,7 +70,7 @@ compatibility_date = "2025-04-21"     # set your current date
 
 ### .quartz/my.ts
 
-It is required. The .quartz/my.ts file is used by quartz-deploy for quick configuration.
+It is required. The ".quartz/my.ts" file is used by quartz-deploy for quick configuration.
 
 ```typescript
 export const config: Record<string, any> = {
@@ -91,6 +91,8 @@ export const layout: Record<string, any> = {
 
 export const plugins: Record<string, any> = {}
 ```
+
+See [./quartz/my.ts](./quartz/my.ts) for example.
 
 ### .quartz/quartz.config.ts
 
