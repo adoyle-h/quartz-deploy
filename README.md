@@ -20,11 +20,14 @@ Build markdown files via [quartz](https://github.com/jackyzha0/quartz) and deplo
   - Metacard: list frontmatters into table.
   - Banner: Support frontmatter `banner: url` to add banner to page.
   - Newline: wrap line in mobile view.
+- Modified quartz plugins
+  - ContentIndex
+      - auto create robots.txt file based on frontmatter `robot: none`.
+      - sitemap.xml do not include files under folder whose frontmatter is `robot: none`.
 - New plugins
   - improved-image
       - Support reszing image with width and hight.
       - Support image caption.
-  - ContentIndex auto create robots.txt file based on frontmatter `robot: none`.
 - Change styles.
   - Change fontsize, line-heights, colors.
   - Set my fav.icon.
