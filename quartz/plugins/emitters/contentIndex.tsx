@@ -42,10 +42,12 @@ const defaultOptions: Options = {
 }
 
 function generateRobotsTxt(cfg: GlobalConfiguration, robotsIndex): string {
+  const base = cfg.baseUrl ?? ""
   const content = robotsIndex
     .map((slug) => `Disallow: /${slug}`)
     .join('\n')
-  return `User-agent: *\n${content}`
+  const sitemapLink = `https://${joinSegments(base, 'sitemap.xml')}`
+  return `User-agent: *\n${content}\nSitemap: ${sitemapLink}\n`
 }
 
 

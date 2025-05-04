@@ -6,7 +6,29 @@ import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } fro
 import { unescapeHTML } from "../util/escape"
 import { CustomOgImagesEmitterName } from "../plugins/emitters/ogImage"
 
-export default (() => {
+function renderMetaRobots(rules: object[] | undefined, fileData) {
+  const { robots } = fileData.frontmatter
+  const { slug } = fileData
+
+  if (robots) {
+    return <meta name="robots" content={robots} />
+  } else if (rules) {
+    const find = rules.find((rule) => slug.match(rule.slug))
+    if (find) {
+      return <meta name="robots" content={find.content} />
+    } else {
+      return <meta name="robots" content='noimageindex' />
+    }
+  } else {
+    return <meta name="robots" content='noimageindex' />
+  }
+}
+
+interface Options {
+  robots: Array<object>
+}
+
+export default ((opts?: Options = { robots: [] }) => {
   const Head: QuartzComponent = ({
     cfg,
     fileData,
@@ -62,7 +84,8 @@ export default (() => {
         <meta name="twitter:description" content={description} />
         <meta property="og:description" content={description} />
         <meta property="og:image:alt" content={description} />
-        <meta name="robots" content={fileData.frontmatter.robots || 'noimageindex'} />
+
+        {renderMetaRobots(opts.robots, fileData)}
 
         {!usesCustomOgImage && (
           <>

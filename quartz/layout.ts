@@ -6,7 +6,7 @@ import { layout } from './quartz.my'
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
-  head: Component.Head(),
+  head: Component.Head(layout.head),
   header: [],
   beforeBody: [
     Component.Banner(),
