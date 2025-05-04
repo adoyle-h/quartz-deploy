@@ -4,7 +4,10 @@ import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } fro
 
 
 const skipKeys = [
-  'title', 'description', 'created', 'updated', 'modified', 'banner',
+  // https://quartz.jzhao.xyz/plugins/Frontmatter#list
+  'title', 'description', 'permalink', 'comments', 'lang', 'publish', 'enableToc', 'cssclasses',
+  'socialDescription', 'socialImage', 'created', 'updated', 'modified', 'published', 'banner',
+  'robots',
 ]
 
 export const MetaCard: QuartzComponentConstructor = () => ({

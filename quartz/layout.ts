@@ -19,7 +19,7 @@ const breadcrumbs = Component.Breadcrumbs(layout.breadcrumbs)
 
 const explorer = Component.Explorer({
   filterFn: (node: FileTrieNode) => {
-    return node.isFolder
+    return node.isFolder || !node.slug.includes('/')
   },
   ...layout.explorer,
 });

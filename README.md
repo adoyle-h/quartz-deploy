@@ -12,6 +12,7 @@ Build markdown files via [quartz](https://github.com/jackyzha0/quartz) and deplo
   - Remove GraphView
   - Explorer only list folders by default.
   - Sort documents by created datetime.
+  - Remove CustomOgImages to speed up build time.
 - Modified quartz components
   - ContentMeta: Show created time, updated time, word count, reading time.
   - Head: Support frontmatter `robots: none` to forbidden SEO robots for folders and documents. Defaults to `robot: noimageindex`.
