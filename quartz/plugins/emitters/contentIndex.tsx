@@ -114,7 +114,7 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
       const robotsIndex = []
       let robotSlug
 
-      for (const [tree, file] of content) {
+      for (const [_, file] of content) {
         const slug = file.data.slug!
 
         if (file.data.frontmatter.robots === 'none') {
@@ -124,8 +124,11 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
             robotSlug = slug
           }
           robotsIndex.push(robotSlug)
-          continue;
         }
+      }
+
+      for (const [tree, file] of content) {
+        const slug = file.data.slug!
 
         const date = getDate(ctx.cfg.configuration, file.data) ?? new Date()
         if (opts?.includeEmptyFiles || (file.data.text && file.data.text !== "")) {
