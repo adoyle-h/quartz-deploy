@@ -21,3 +21,5 @@ export const layout: Record<string, any> = {
 }
 
 export const plugins: Record<string, any> = {}
+
+export const pluginOpts: Record<string, any> = {}

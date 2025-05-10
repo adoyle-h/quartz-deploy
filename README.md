@@ -94,6 +94,8 @@ export const layout: Record<string, any> = {
 }
 
 export const plugins: Record<string, any> = {}
+
+export const pluginOpts: Record<string, any> = {}
 ```
 
 See [./quartz/my.ts](./quartz/my.ts) for example.

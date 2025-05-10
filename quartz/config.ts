@@ -1,6 +1,6 @@
 import { QuartzConfig } from "./quartz/cfg"
 import * as Plugin from "./quartz/plugins"
-import { config as conf, plugins } from './quartz.my'
+import { config as conf, plugins, pluginOpts } from './quartz.my'
 
 /**
  * Quartz 4 Configuration
@@ -92,6 +92,7 @@ const config: QuartzConfig = {
         enableRobotsTxt: true,
         rssSlug: 'rss',
         rssLimit: 20,
+        ...pluginOpts?.ContentIndex,
       }),
       Plugin.Assets(),
       Plugin.Static(),
