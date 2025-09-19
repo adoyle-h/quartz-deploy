@@ -92,6 +92,7 @@ const config: QuartzConfig = {
         enableRobotsTxt: true,
         rssSlug: 'rss',
         rssLimit: 20,
+        robotsIndex: [],
         ...pluginOpts?.ContentIndex,
       }),
       Plugin.Assets(),

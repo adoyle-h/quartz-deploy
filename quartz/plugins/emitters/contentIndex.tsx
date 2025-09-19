@@ -111,8 +111,8 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
       const cfg = ctx.cfg.configuration
       const linkIndex: ContentIndexMap = new Map()
       const sitemapIndex: ContentIndexMap = new Map()
-      const robotsIndex = []
-      let robotSlug
+      const robotsIndex: string[] = opts.robotsIndex
+      let robotSlug: string
 
       for (const [_, file] of content) {
         const slug = file.data.slug!
@@ -130,7 +130,7 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
       for (const [tree, file] of content) {
         const slug = file.data.slug!
 
-        const date = getDate(ctx.cfg.configuration, file.data) ?? new Date()
+        const date = getDate(cfg, file.data) ?? new Date()
         if (opts?.includeEmptyFiles || (file.data.text && file.data.text !== "")) {
           const idx = {
             slug,
