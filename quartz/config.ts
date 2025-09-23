@@ -1,6 +1,6 @@
 import { QuartzConfig } from "./quartz/cfg"
 import * as Plugin from "./quartz/plugins"
-import { config as conf, plugins, pluginOpts } from './quartz.my'
+import { config as conf, plugins, transformers, filters, emitters, emitterOpts } from './quartz.my'
 
 /**
  * Quartz 4 Configuration
@@ -19,7 +19,7 @@ const config: QuartzConfig = {
     locale: "zh-CN",
     baseUrl: "xxx.me",
     // https://quartz.jzhao.xyz/features/private-pages
-    ignorePatterns: [".*"],
+    ignorePatterns: [".*", "wrangler.toml"],
     defaultDateType: "created",
     theme: {
       fontOrigin: "googleFonts",
@@ -78,8 +78,12 @@ const config: QuartzConfig = {
       Plugin.Description(),
       Plugin.Latex({ renderEngine: "katex" }),
       Plugin.ImprovedImage(),
+      ...transformers,
     ],
-    filters: [Plugin.RemoveDrafts()],
+    filters: [
+      Plugin.RemoveDrafts(),
+      ...filters,
+    ],
     emitters: [
       Plugin.AliasRedirects(),
       Plugin.ComponentResources(),
@@ -93,13 +97,14 @@ const config: QuartzConfig = {
         rssSlug: 'rss',
         rssLimit: 20,
         robotsIndex: [],
-        ...pluginOpts?.ContentIndex,
+        ...emitterOpts?.ContentIndex,
       }),
       Plugin.Assets(),
       Plugin.Static(),
       Plugin.NotFoundPage(),
       // Comment out CustomOgImages to speed up build time
       // Plugin.CustomOgImages(),
+      ...emitters,
     ],
     ...plugins,
   },

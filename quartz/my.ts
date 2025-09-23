@@ -21,5 +21,11 @@ export const layout: Record<string, any> = {
 }
 
 export const plugins: Record<string, any> = {}
-
-export const pluginOpts: Record<string, any> = {}
+export const transformers = []
+export const filters = []
+export const emitters = []
+export const emitterOpts: Record<string, any> = {
+  ContentIndex: {
+    robotsIndex: ['cdn-cgi/']
+  },
+}
