@@ -19,7 +19,7 @@ const config: QuartzConfig = {
     locale: "zh-CN",
     baseUrl: "xxx.me",
     // https://quartz.jzhao.xyz/features/private-pages
-    ignorePatterns: [".*", "wrangler.toml", "其他/豆瓣模板/"],
+    ignorePatterns: [".*"],
     defaultDateType: "created",
     theme: {
       fontOrigin: "googleFonts",
@@ -61,7 +61,7 @@ const config: QuartzConfig = {
     transformers: [
       Plugin.FrontMatter(),
       Plugin.CreatedModifiedDate({
-        priority: ["frontmatter", "git", "filesystem"],
+        priority: ["frontmatter", "filesystem", "git"],
       }),
       Plugin.SyntaxHighlighting({
         theme: {
