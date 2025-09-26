@@ -2,6 +2,7 @@ FROM node:23-bookworm-slim AS builder
 
 WORKDIR /root
 
+ARG QUART_VERSION
 ARG GITHUB_PROXY
 ARG APT_MIRROR
 
@@ -11,13 +12,14 @@ RUN <<EOF
   apt-get install -y ca-certificates unzip
 EOF
 
-ADD "${GITHUB_PROXY}https://github.com/jackyzha0/quartz/archive/refs/heads/v4.zip" ./quartz.zip
+# ADD "${GITHUB_PROXY}https://github.com/jackyzha0/quartz/archive/refs/heads/v4.zip" ./quartz.zip
+ADD "${GITHUB_PROXY}https://github.com/jackyzha0/quartz/archive/refs/tags/v${QUART_VERSION}.zip" ./quartz.zip
 
-RUN unzip ./quartz.zip && rm -f ./quartz.zip
-RUN cd quartz-4 && NODE_ENV=production npm i --verbose
+RUN unzip ./quartz.zip && rm -f ./quartz.zip && mv ./quartz-${QUART_VERSION} ./quartz
+RUN cd quartz && NODE_ENV=production npm i --verbose
 
 RUN <<EOF
-  cd quartz-4
+  cd quartz
   NODE_ENV=production npm i @microflash/rehype-figure
 EOF
 
@@ -25,7 +27,7 @@ FROM node:23-bookworm-slim
 
 WORKDIR /root/quartz
 
-COPY --from=builder /root/quartz-4 /root/quartz
+COPY --from=builder /root/quartz /root/quartz
 
 RUN npx quartz create
 

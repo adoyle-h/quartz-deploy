@@ -37,7 +37,8 @@ EOF
 }
 
 set_envs() {
-    export CONTENT_DIR=$(realpath "$1")
+    export CONTENT_DIR=$(realpath "${1:-$PWD}")
+    export QUART_VERSION=${2:-4.5.2}
 
     export QUART_DEPLOY_DIR=$SCRIPT_DIR
 
@@ -53,7 +54,6 @@ set_envs() {
         export QUARTZ_MY=$SCRIPT_DIR/quartz/my.ts
     fi
 
-
     if [[ -f $CONTENT_DIR/.quartz/layout.ts ]]; then
         export QUARTZ_LAYOUT=$CONTENT_DIR/.quartz/layout.ts
     else
@@ -62,14 +62,41 @@ set_envs() {
 
 }
 
+print_envs() {
+    cat <<EOF
+[QUART_DEPLOY ENVS]
+QUART_VERSION=$QUART_VERSION
+CONTENT_DIR=$CONTENT_DIR
+QUART_DEPLOY_DIR=$QUART_DEPLOY_DIR
+QUARTZ_MY=$QUARTZ_MY
+QUARTZ_CONFIG=$QUARTZ_CONFIG
+QUARTZ_LAYOUT=$QUARTZ_LAYOUT
+
+EOF
+}
+
 build() {
-    set_envs "${1:-$PWD}"
+    set_envs "${@}"
+    print_envs
     docker compose -f "$SCRIPT_DIR/compose.yaml" up build
 }
 
+debug() {
+    set_envs "${@}"
+    print_envs
+    docker compose -f "$SCRIPT_DIR/compose.yaml" run --rm -it debug bash
+}
+
 serve() {
-    set_envs "${1:-$PWD}"
+    set_envs "${@}"
+    print_envs
     docker compose -f "$SCRIPT_DIR/compose.yaml" up serve
+}
+
+clean() {
+    set_envs "${@}"
+    print_envs
+    docker compose -f "$SCRIPT_DIR/compose.yaml" down -v
 }
 
 deploy() {
@@ -84,6 +111,7 @@ deploy() {
 
 build-image() {
     set_envs "$PWD"
+    export QUART_VERSION=$1
     docker compose -f "$SCRIPT_DIR/compose.yaml" build build
 }
 

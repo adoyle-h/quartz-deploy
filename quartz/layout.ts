@@ -33,6 +33,22 @@ const recnetNotes = Component.ConditionalRender({
       // console.log('d=%O', d)
       return !d.slug.endsWith('/index')
     },
+    sort: (f1, f2) => {
+      if (f1.dates && f2.dates) {
+        // sort descending
+        const d = f2.dates?.modified!.getTime() - f1.dates?.modified!.getTime()
+        if (d > 0.1) {
+          return d
+        } else {
+          return f2.dates?.created!.getTime() - f1.dates?.created!.getTime()
+        }
+      } else if (f1.dates && !f2.dates) {
+        // prioritize files with dates
+        return -1
+      } else if (!f1.dates && f2.dates) {
+        return 1
+      }
+    },
     ...layout.recnetNotes,
   }),
   // only show recent notes in homepage
@@ -42,7 +58,7 @@ const recnetNotes = Component.ConditionalRender({
 // components for pages that display a single page (e.g. a single note)
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
-    Component.Banner(),
+    // Component.Banner(),
     Component.ConditionalRender({
       component: breadcrumbs,
       condition: (page) => page.fileData.slug !== "index",
@@ -69,20 +85,25 @@ export const defaultContentPageLayout: PageLayout = {
       ],
     }),
     explorer,
+    Component.DesktopOnly(Component.Graph()),
   ],
 
   right: [
     Component.DesktopOnly(Component.TableOfContents()),
-    Component.Backlinks(),
-    // Component.Graph(),
-    recnetNotes
+    Component.ConditionalRender({
+      component: Component.Backlinks(),
+      // not show backlinks in homepage
+      condition: (page) => page.fileData.slug !== 'index',
+    }),
+    recnetNotes,
+    Component.MobileOnly(Component.Graph()),
   ],
 }
 
 // components for pages that display lists of pages  (e.g. tags or folders)
 export const defaultListPageLayout: PageLayout = {
   beforeBody: [
-    Component.Banner(),
+    // Component.Banner(),
     breadcrumbs,
     Component.ArticleTitle(),
     Component.ConditionalRender({
