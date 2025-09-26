@@ -1,0 +1,35 @@
+name: Build Docker Image
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  buildx:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - # Add support for more platforms with QEMU (optional)
+        # https://github.com/docker/setup-qemu-action
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # - name: build multi-arch images
+      # run: ./quartz-deploy build-multi-images 6
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        env:
+          CONTENT_DIR: .
+          QUART_VERSION: 6
+          QUART_DEPLOY_DIR: .
+          QUARTZ_CONFIG: ./quartz/config.ts
+          QUARTZ_MY: ./quartz/my.ts
+          QUARTZ_LAYOUT: ./quartz/layout.ts
+        with:
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          push: true
+          tags: adoyle/app:v6

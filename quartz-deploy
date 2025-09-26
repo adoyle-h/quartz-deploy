@@ -115,4 +115,10 @@ build-image() {
     docker compose -f "$SCRIPT_DIR/compose.yaml" build build
 }
 
+build-multi-images() {
+    set_envs "$PWD"
+    export QUART_VERSION=$1
+    docker buildx bake -f "$SCRIPT_DIR/compose.yaml" --push build
+}
+
 "${cmd}" "$@"
