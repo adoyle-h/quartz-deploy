@@ -13,9 +13,9 @@ RUN <<EOF
 EOF
 
 # ADD "${GITHUB_PROXY}https://github.com/jackyzha0/quartz/archive/refs/heads/v4.zip" ./quartz.zip
-ADD "${GITHUB_PROXY}https://github.com/jackyzha0/quartz/archive/refs/tags/v${QUART_VERSION}.zip" ./quartz.zip
+ADD "https://github.com/adoyle-h/quartz/archive/refs/heads/fix/rmdir-public-locked.zip" ./quartz.zip
 
-RUN unzip ./quartz.zip && rm -f ./quartz.zip && mv ./quartz-${QUART_VERSION} ./quartz
+RUN unzip ./quartz.zip && rm -f ./quartz.zip && mv ./quartz-fix-rmdir-public-locked ./quartz
 RUN cd quartz && NODE_ENV=production npm i --verbose
 
 RUN <<EOF
