@@ -73,6 +73,8 @@ QUARTZ_CONFIG=$QUARTZ_CONFIG
 QUARTZ_LAYOUT=$QUARTZ_LAYOUT
 
 EOF
+
+    printf 'DOCKER_IMAGE=%s\n\n' "$(docker image inspect "adoyle/quartz-deploy:v$QUART_VERSION" --format='{{.RepoDigests}}')"
 }
 
 build() {
